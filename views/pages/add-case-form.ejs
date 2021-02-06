@@ -1,0 +1,82 @@
+<%- include('../fragments/header.ejs') %>
+
+    <main>
+        <script type="application/javascript" src="/js/validationCaseForm.js"></script>
+        <h2><%= pageTitle %></h2>
+
+        <form class="form" method="post" action="<%=formAction%>" novalidate onsubmit="return validateForm();">
+
+            <input type="hidden" name="_id" value="<%= c._id %>">
+
+            <label for="caseName">Nazwa nowej sprawy:<abbr title="required" aria-label="required">*</abbr></label>
+            <input type="text" name="caseName" id="caseName" placeholder="2-120 znaków" value="<%= c.caseName %>"
+                   class="<%= validationErrors.find(e=>e.path.includes('caseName')) ? 'error-input' : '' %>" <%=(formMode=='showDetails' ) ? 'disabled' : '' %>/>
+            <span id="errorCase" class="errors-text">
+                <% if (validationErrors.find(e=> e.path.includes('caseName'))) { %>
+                    <%= validationErrors.find(e=> e.path.includes('caseName')).message %>
+                <% } %>
+            </span>
+
+            <label for="caseStatus">Status:<abbr title="required" aria-label="required">*</abbr></label>
+            <input type="text" name ="caseStatus" id="caseStatus" placeholder="A/Z" value="<%= c.caseStatus %>"
+                   class="<%= validationErrors.find(e=>e.path.includes('caseStatus')) ? 'error-input' : '' %>" <%=(formMode=='showDetails' ) ? 'disabled' : '' %>/>
+            <span id="errorStatus" class="errors-text">
+                <% if (validationErrors.find(e=> e.path.includes('caseStatus'))) { %>
+                    <%= validationErrors.find(e=> e.path.includes('caseStatus')).message %>
+                <% } %>
+            </span>
+
+                <% if (formMode == 'showDetails') { %>
+                    <div class="section-buttons">
+                      <a href="/cases/edit/<%= c._id %>" class="list-actions-button-edit">Edytuj</a>
+                    </div>
+                <% } %>
+
+            <div class="form-buttons">
+                <p id="errorsSummary" class="errors-text"></p>
+
+                <% if (formMode != 'showDetails') { %>
+                <input class="form-button-submit"  type="submit" value="<%=btnLabel%>" />
+                <a class="form-button-cancel" href="/cases">Anuluj</a>
+
+                <% } %>
+            </div>
+
+        </form>
+
+        <% if (formMode == 'showDetails' || formMode == 'edit') { %>
+            <h2>
+                Szczegóły przydziałów
+            </h2>
+            <table class="table-list">
+                <thead>
+                <tr>
+                    <th>Detektyw</th>
+                    <th>ID Detektywa</th>
+                    <th>Rozpoczęcie zlecenia</th>
+                    <th>Zakończenie zlecenia</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% for (let ca of c.assignments) { %>
+                    <tr>
+                        <td><a href="/detectives/details/<%= ca.detective._id %>
+                            "style="text-decoration: none; color: black;">
+                                <%= ca.detective.lastName %></a></td>
+                        <td><%= ca.detective_id %></td>
+                        <td><%= ca.dateFrom.toISOString().split('T')[0] %></td>
+                        <td><%= ca.dateTo ? ca.dateTo.toISOString().split('T')[0] : '' %></td>
+                    </tr>
+                <% } %>
+                </tbody>
+            </table>
+
+        <% } %>
+        <div class="form-buttons">
+        <% if (formMode == 'showDetails') { %>
+        <a class="form-button-cancel" href="/cases">Powrót</a>
+        <% } %>
+        </div>
+    </main>
+
+<%- include('../fragments/footer.ejs') %>

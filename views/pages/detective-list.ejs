@@ -1,0 +1,38 @@
+<%- include('../fragments/header.ejs') %>
+
+    <main>
+        <h2>Lista detektywów</h2>
+        <table class="table-list">
+            <thead>
+                <tr>
+                    <th>Imię</th>
+                    <th>Nazwisko</th>
+                    <th>Akcje</th>
+                </tr>
+            </thead>
+            <tbody>
+            <% for (let detective of detectives) { %>
+                <tr>
+                    <td><%= detective.firstName %></td>
+                    <td><%= detective.lastName %></td>
+                    <td>
+                        <ul class="list-actions">
+                            <li>
+                                <a class="list-actions-button-details" href="/detectives/details/<%=detective._id%>" >Szczegóły</a>
+                            </li>
+                            <li>
+                                <a class="list-actions-button-edit" href="/detectives/edit/<%=detective._id%>">Edytuj</a>
+                            </li>
+                            <li>
+                                <a class="list-actions-button-delete" href="/detectives/delete/<%=detective._id%>">Usuń</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            <% } %>
+            </tbody>
+        </table>
+        <p><a class="button-add" href="/detectives/add" >Dodaj nowego detektywa</a></p>
+    </main>
+
+<%- include('../fragments/footer.ejs') %>

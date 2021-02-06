@@ -1,0 +1,61 @@
+<%- include('../fragments/header.ejs') %>
+
+    <main>
+        <h2>Szczegóły sprawy</h2>
+        <form class="form">
+            <label for="idcase">ID sprawy:</label>
+            <input type="number" name="idcase" value="021" id="idcase" disabled />
+
+
+            <label for="case">Nazwa:</label>
+            <input type="text" name="case" value="Morderstwo Stefana O." id="case" disabled />
+
+
+            <label for="status">Status sprawy:</label>
+            <input type="text" name="status" value="Zakończona" id="status" disabled />
+
+            <!--</div>-->
+
+        </form>
+        <div class="form-buttons">
+
+            <p>
+                <a class="list-actions-button-edit" href="views/pages/edit-case-form.ejs">Edytuj</a>
+            </p>
+        </div>
+        <h3>Członkowie zespołu detektywistycznego</h3>
+        <table class="table-list">
+            <thead>
+                <tr>
+                    <th>Detektyw</th>
+                    <th>ID Detektywa</th>
+                    <th>Rozpoczęcie zlecenia</th>
+                    <th>Zakończenie zlecenia</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Krzysztof Kwadrat</td>
+                    <td>001</td>
+                    <td>2003-10-11</td>
+                    <td>2004-04-05</td>
+                </tr>
+                <tr>
+                    <td>Eliza Salander</td>
+                    <td>004</td>
+                    <td>2003-12-15</td>
+                    <td>2004-04-05</td>
+                </tr>
+
+            </tbody>
+        </table>
+        <div class="form-buttons">
+
+            <p>
+                <a class="list-actions-button-details" href="all-case-list.ejs">Powrót</a>
+            </p>
+        </div>
+
+    </main>
+
+<%- include('../fragments/footer.ejs') %>

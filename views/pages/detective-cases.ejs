@@ -1,0 +1,39 @@
+<%- include('../fragments/header.ejs') %>
+
+    <main>
+        <h2>Lista przydzielonych spraw</h2>
+        <table class="table-list">
+            <thead>
+                <tr>
+                    <th>Sprawa</th>
+                    <th>Powadzący</th>
+                    <th>Akcje</th>
+
+                </tr>
+            </thead>
+            <tbody>
+            <% for (let assignment of assignments) {%>
+
+                <tr>
+                    <td><%= assignment.c.caseName %></td>
+                    <td><%= assignment.detective.lastName %></td>
+
+                    <td>
+                        <ul class="list-actions">
+                            <li><a href="/assignments/details/<%=assignment._id%>" class="list-actions-button-details">Szczegóły</a></li>
+                            <li><a href="/assignments/edit/<%=assignment._id%>" class="list-actions-button-edit">Edytuj</a></li>
+                            <li><a href="/assignments/delete/<%=assignment._id%>" class="list-actions-button-delete">Usuń</a></li>
+                        </ul>
+                    </td>
+                </tr>
+            <% } %>
+
+            </tbody>
+        </table>
+        <p><a class="button-add" href="assignments/add">Przydziel nową sprawę</a>
+        </p>
+
+
+    </main>
+
+<%- include('../fragments/footer.ejs') %>

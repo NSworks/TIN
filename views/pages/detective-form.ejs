@@ -1,0 +1,89 @@
+<%- include('../fragments/header.ejs') %>
+
+    <main>
+        <script type="application/javascript" src="/js/validationEmpForm.js"></script>
+        <h2><%= pageTitle %></h2>
+
+        <form class="form" method="post" action="<%=formAction%>" novalidate onsubmit="return validateForm();">
+
+            <input type="hidden" name="_id" value="<%= detective._id %>">
+
+            <label for="firstName">Imię:<abbr title="required" aria-label="required">*</abbr></label>
+            <input type="text" name="firstName" id="firstName" placeholder="2-60 znaków" value="<%= detective.firstName %>"
+                   class="<%= validationErrors.find(e => e.path.includes('firstName')) ? 'error-input' : '' %>"
+                    <%=(formMode=='showDetails' ) ? 'disabled' : '' %>/>
+            <span id="errorFirstName" class="errors-text">
+                <% if (validationErrors.find(e=> e.path.includes('firstName'))) { %>
+                    <%= validationErrors.find(e=> e.path.includes('firstName')).message %>
+                <% } %>
+            </span>
+
+            <label for="lastName">Nazwisko:<abbr title="required" aria-label="required">*</abbr></label>
+            <input type="text" name="lastName" id="lastName" placeholder="2-60 znaków" value="<%= detective.lastName %>"
+                   class="<%= validationErrors.find(e=>
+                           e.path.includes('lastName')) ? 'error-input' : '' %>"
+                    <%=(formMode=='showDetails' ) ? 'disabled' : '' %> />
+            <span id="errorLastName" class="errors-text">
+                <% if (validationErrors.find(e=> e.path.includes('lastName'))) { %>
+                    <%= validationErrors.find(e=> e.path.includes('lastName')).message %>
+                <% } %>
+            </span>
+
+            <label for="praticeFrom">Data rozpoczęcia pracy:<abbr title="required" aria-label="required">*</abbr></label>
+            <input type="date" name="practiceFrom" id="practiceFrom" value="<%= (formMode=='createNew') ? '': detective.practiceFrom.toISOString().split('T')[0] %>" class="<%= validationErrors.find(e=>e.path.includes('practiceFrom')) ? 'error-input' : '' %>"
+                    <%=(formMode=='showDetails' ) ? 'disabled' : '' %> />
+            <span id="errorDateFrom" class="errors-text">
+                <% if (validationErrors.find(e=> e.path.includes('praticeFrom'))) { %>
+                    <%= validationErrors.find(e=> e.path.includes('praticeFrom')).message %>
+                <% } %>
+            </span>
+
+            <% if (formMode == 'showDetails') { %>
+                <div class="section-buttons">
+                    <a href="/detectives/edit/<%= detective._id %>" class="list-actions-button-edit">Edytuj</a>
+                </div>
+            <% } %>
+            <div class="form-buttons">
+                <p id="errorsSummary" class="errors-text"></p>
+                <% if (formMode != 'showDetails') { %>
+                <input class="form-button-submit" type="submit" value="<%=btnLabel%>" />
+                <a class="form-button-cancel" href="/detectives">Anuluj</a>
+
+                <% } %>
+            </div>
+
+        </form>
+        <% if (formMode == 'showDetails' || formMode == 'edit') { %>
+            <h2>
+                Szczegóły zatrudnienia
+            </h2>
+            <table class="table-list">
+                <thead>
+                <tr>
+                    <th>Sprawa</th>
+                    <th>ID Sprawy</th>
+                    <th>Data rozpoczęcia</th>
+                    <th>Data zakończenia</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% for (let d of detective.assignments) { %>
+                    <tr>
+                        <td><a href="/cases/details/<%= d.c._id %>"style="text-decoration: none; color: black;">
+                                <%= d.c.caseName %></a></td>
+                        <td><%= d.case_id %></td>
+                        <td><%= d.dateFrom.toISOString().split('T')[0] %></td>
+                        <td><%= d.dateTo ? d.dateTo.toISOString().split('T')[0] : '' %></td>
+                    </tr>
+                <% } %>
+                </tbody>
+            </table>
+        <% } %>
+
+        <div class="form-buttons">
+            <% if (formMode == 'showDetails') { %>
+                <a class="form-button-cancel" href="/detectives">Powrót</a>
+            <% } %>
+        </div>
+    </main>
+<%- include('../fragments/footer.ejs') %>
