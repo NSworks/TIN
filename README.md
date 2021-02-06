@@ -1,2 +1,2 @@
-# tin-s19048
+# TIN
 Web Application created for University project
