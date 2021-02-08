@@ -12,17 +12,17 @@
                 </tr>
             </thead>
             <tbody>
-            <% for (let assignment of assignments) {%>
+            <% for (let a of assignments) {%>
 
                 <tr>
-                    <td><%= assignment.c.caseName %></td>
-                    <td><%= assignment.detective.lastName %></td>
+                    <td><%= a.c.caseName %></td>
+                    <td><%= a.detective.lastName %></td>
 
                     <td>
                         <ul class="list-actions">
-                            <li><a href="/assignments/details/<%=assignment._id%>" class="list-actions-button-details">Szczegóły</a></li>
-                            <li><a href="/assignments/edit/<%=assignment._id%>" class="list-actions-button-edit">Edytuj</a></li>
-                            <li><a href="/assignments/delete/<%=assignment._id%>" class="list-actions-button-delete">Usuń</a></li>
+                            <li><a href="/assignments/details/<%=a._id%>" class="list-actions-button-details">Szczegóły</a></li>
+                            <li><a href="/assignments/edit/<%=a._id%>" class="list-actions-button-edit">Edytuj</a></li>
+                            <li><a href="/assignments/delete/<%=a._id%>" class="list-actions-button-delete">Usuń</a></li>
                         </ul>
                     </td>
                 </tr>

@@ -11,7 +11,7 @@ exports.getCaseById = (caseId) => {
         {
             include: [{
                 model: Assignment,
-                as: 'assignments',
+                as: 'assignment',
                 include: [{
                     model: Detective,
                     as: 'detective'

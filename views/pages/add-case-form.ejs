@@ -4,7 +4,7 @@
         <script type="application/javascript" src="/js/validationCaseForm.js"></script>
         <h2><%= pageTitle %></h2>
 
-        <form class="form" method="post" action="<%=formAction%>" novalidate onsubmit="return validateForm();">
+        <form class="form" method="post" action="<%=formAction%>" novalidate> <!-- onsubmit="return validateForm();"> -->
 
             <input type="hidden" name="_id" value="<%= c._id %>">
 
@@ -58,7 +58,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <% for (let ca of c.assignments) { %>
+                <% for (let ca of c.assignment) { %>
                     <tr>
                         <td><a href="/detectives/details/<%= ca.detective._id %>
                             "style="text-decoration: none; color: black;">

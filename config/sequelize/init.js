@@ -5,9 +5,9 @@ const Case = require('../../model/sequelize/Case');
 const Assignment = require('../../model/sequelize/Assignment');
 
 module.exports = () => {
-    Detective.hasMany(Assignment, {as: 'assignments', foreignKey: {name: 'detective_id', allowNull: false}, constraints: true, onDelete: 'CASCADE'});
+    Detective.hasMany(Assignment, {as: 'assignment', foreignKey: {name: 'detective_id', allowNull: false}, constraints: true, onDelete: 'CASCADE'});
     Assignment.belongsTo(Detective, {as: 'detective', foreignKey: {name: 'detective_id', allowNull: false} } );
-    Case.hasMany(Assignment, {as: 'assignments', foreignKey: {name: 'case_id', allowNull: false}, constraints: true, onDelete: 'CASCADE'});
+    Case.hasMany(Assignment, {as: 'assignment', foreignKey: {name: 'case_id', allowNull: false}, constraints: true, onDelete: 'CASCADE'});
     Assignment.belongsTo(Case, {as: 'c', foreignKey: {name: 'case_id', allowNull: false} });
 
     let allDetectives, allCases;

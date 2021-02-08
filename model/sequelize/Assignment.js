@@ -13,7 +13,7 @@ const Assignment = sequelize.define('Assignment', {
         allowNull: false,
         validate: {
             notEmpty: {
-                msg: "Pole jest wymagane"
+                msg: "Pole data jest wymagane"
             },
         }
     },

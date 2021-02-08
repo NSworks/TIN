@@ -9,16 +9,13 @@
         <input type="hidden" name="_id" value="<%= assignment._id %>">
 
 
-        <label for="caseData">Sprawa:<abbr title="required" aria-label="required">*</abbr></label>
+        <label for="case_id">Sprawa:<abbr title="required" aria-label="required">*</abbr></label>
 
-        <select id="case_id" name="case_id" required <%=(formMode=='showDetails' ) ? 'disabled': '' %>>
-            <% if (formMode !='edit' ){ %>
-                <option value="" selected="selected">--Wybierz Sprawę--</option>
-            <% } %>
-
+        <select id="case_id" name="case_id" required <%=(formMode=='showDetails' ) ? 'disabled' : ''%> class="<%= validationErrors.find(e=>e.path.includes('case_id')) ? 'error-input' : '' %>"  >
+                <option value="" selected disabled>--Wybierz Sprawę--</option>
             <%for (let i=0; i<allCases.length; i++) {let c=allCases[i]; %>
             <option value="<%= c._id %>" label="<%= c.caseName%>"
-                    <%=( assignment._id && c._id.toString() == assignment.c._id.toString()) ? 'selected' : '' %>></option>
+                    <%=(String(c._id) === String(assignment.case_id)) ? 'selected' : '' %>></option>
             <% } %>
         </select>
         <span id="errorCase" class="errors-text">
@@ -30,17 +27,14 @@
             %>
         </span>
 
+        <label for="detective_id">Detektyw:<abbr title="required" aria-label="required">*</abbr></label>
 
-        <label for="detectiveData">Detektyw:<abbr title="required" aria-label="required">*</abbr></label>
-
-        <select id="detective_id" name="detective_id" required  <%=(formMode=='showDetails' ) ? 'disabled' : ''%> >
-            <% if (formMode !='edit' ){ %>
-                <option value="" selected="selected">--Wybierz Detektywa--</option>
-            <% } %>
+        <select id="detective_id" name="detective_id" required <%=(formMode=='showDetails' ) ? 'disabled' : ''%> class="<%= validationErrors.find(e=>e.path.includes('detective_id')) ? 'error-input' : '' %>"  >
+                <option value="" selected disabled>--Wybierz Detektywa--</option>
 
             <% for (let i=0; i<allDetectives.length; i++) {let detective=allDetectives[i]; %>
             <option value="<%= detective._id %>" label="<%= detective.firstName + ' ' + detective.lastName %>"
-                    <%=(assignment._id && detective._id.toString() == assignment.detective._id.toString()) ? 'selected' : ''%>>
+                    <%=(String(detective._id) === String(assignment.detective_id)) ? 'selected' : ''%>>
             </option>
             <% } %>
         </select>
@@ -54,8 +48,9 @@
             %>
         </span>
 
+
         <label for="dateFrom">Data rozpoczęcia:<abbr title="required" aria-label="required">*</abbr></label>
-        <input type="date" name="dateFrom" id=dateFrom" value="<%= (formMode=='createNew') ? '': assignment.dateFrom.toISOString().split('T')[0] %>" <%= (formMode == 'showDetails') ? 'disabled' : '' %> />
+        <input type="date" name="dateFrom" id="dateFrom"  value="<%= (formMode=='createNew') ? '': assignment.dateFrom.toISOString().split('T')[0] %>" class="<%= validationErrors.find(e=>e.path.includes('dateFrom')) ? 'error-input' : '' %>"  <%=(formMode=='showDetails' ) ? 'disabled' : '' %> />
 
         <span id="errorDateFrom" class="errors-text">
             <% if(validationErrors) {
@@ -67,7 +62,7 @@
         </span>
 
         <label for="dateTo">Data zakończenia:</label>
-        <input type="date" name="dateTo" id=dateTo" value="<%= (formMode=='createNew') ? '': assignment.dateTo.toISOString().split('T')[0] %>" <%= (formMode == 'showDetails') ? 'disabled' : '' %> />
+        <input type="date" name="dateTo" id="dateTo"  value="<%= (formMode=='createNew') ? '': assignment.dateTo.toISOString().split('T')[0] %>" class="<%= validationErrors.find(e=>e.path.includes('dateTo')) ? 'error-input' : '' %>"  <%=(formMode=='showDetails' ) ? 'disabled' : '' %> />
         <span id="errorDateTo" class="errors-text">
             <% if(validationErrors) {
             if (validationErrors.find(e => e.path.includes('dateTo'))) { %>

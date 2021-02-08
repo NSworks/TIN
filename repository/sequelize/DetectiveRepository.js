@@ -12,7 +12,7 @@ exports.getDetectiveById = (detectiveId) => {
         {
             include: [{
                 model: Assignment,
-                as: 'assignments',
+                as: 'assignment',
                 include: [{
                     model: Case,
                     as: 'c'

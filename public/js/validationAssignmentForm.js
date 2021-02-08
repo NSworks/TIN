@@ -1,5 +1,5 @@
 function validateForm() {
-
+    console.log('hello world')
     const caseInput = document.getElementById('case_id');
     const detectiveInput = document.getElementById('detective_id');
     const dateFromInput = document.getElementById('dateFrom');
@@ -15,7 +15,7 @@ function validateForm() {
 
     let valid = true;
     // c
-    if (!checkRequired(caseInput.value)|| caseInput.value == "--Wybierz sprawę--") {
+    if (!checkRequired(caseInput.value)) {
         valid = false;
         caseInput.classList.add("error-input");
         errorCase.innerText = "Pole jest wymagane";
@@ -23,7 +23,7 @@ function validateForm() {
 
 
     //detektyw
-    if (!checkRequired(detectiveInput.value) || detectiveInput.value == "--Wybierz detektywa--")
+    if (!checkRequired(detectiveInput.value))
     {
         valid = false;
         detectiveInput.classList.add("error-input");
@@ -54,14 +54,17 @@ function validateForm() {
         valid = false;
         dateFromInput.classList.add("error-input");
         errorDateFrom.innerText = "Data nie może być z przyszłości";
-    } else if (checkRequired(dateToInput.value) && checkDate(dateToInput.value)
-        && !checkDateIfAfter(dateToInput.value, dateFromInput.value)) {
-        //jeśli data od oraz data do jest poprawna, sprawdzamy kolejność dat
-        valid = false;
-        dateToInput.classList.add("error-input");
-        errorDateTo.innerText = "Data zakończenia powinna być późniejsza niż data rozpoczęcia";
     }
 
+    if (!checkDate(dateToInput.value)) {
+        valid = false;
+        dateToInput.classList.add("error-input");
+        dateToInput.innerText = "Pole powinno zawierać datę w formacie yyyy-MM-dd (np. 2000-01-01)";
+    } else if (checkDateIfAfter(dateFromInput.value, dateToInput.value)) {
+        valid = false;
+        dateToInput.classList.add("error-input");
+        errorDateTo.innerText = "Data musi byc po rozpoczeciu";
+    }
 
 
     if (!valid) {

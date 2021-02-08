@@ -1,4 +1,5 @@
 function resetErrors(inputs, errorTexts, errorInfo) {
+    console.log(inputs)
     for (let i = 0; i < inputs.length; i++) {
         inputs[i].classList.remove("error_input");
     }

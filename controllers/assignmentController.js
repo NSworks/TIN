@@ -119,6 +119,7 @@ exports.addAssignment = (req, res, next) => {
             return caseRepository.getCases()
         })
         .then(cases => {
+            console.log(error)
             allCases = cases;
             res.render('pages/add-assignment-form', {
                 assignment: {},
