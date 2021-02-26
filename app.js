@@ -42,6 +42,11 @@ app.use('/api/detectives', detectiveApiRouter);
 app.use('/api/cases', caseApiRouter);
 app.use('/api/assignments', assignmentApiRouter);
 
+const session = require('express-session');
+app.use(session({
+    secret: 'my_secret_password',
+    resave: false
+}));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
